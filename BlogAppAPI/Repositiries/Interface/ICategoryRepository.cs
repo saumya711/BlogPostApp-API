@@ -1,6 +1,9 @@
-﻿namespace BlogAppAPI.Repositiries.Interface
+﻿using BlogAppAPI.Models.Domain;
+
+namespace BlogAppAPI.Repositiries.Interface
 {
     public interface ICategoryRepository
     {
+        Task<Category> CreateAsync(Category category);
     }
 }

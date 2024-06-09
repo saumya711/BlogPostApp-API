@@ -1,6 +1,7 @@
 ﻿using BlogAppAPI.Data;
 using BlogAppAPI.Models.Domain;
 using BlogAppAPI.Models.DTO;
+using BlogAppAPI.Repositiries.Interface;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -10,11 +11,11 @@ namespace BlogAppAPI.Controllers
     [ApiController]
     public class CategoriesController : ControllerBase
     {
-        private readonly ApplicationDbContext dbContext;
+        private readonly ICategoryRepository categoryRepository;
 
-        public CategoriesController(ApplicationDbContext dbContext)
+        public CategoriesController(ICategoryRepository categoryRepository)
         {
-            this.dbContext = dbContext;
+            this.categoryRepository = categoryRepository;
         }
 
         [HttpPost]
@@ -27,8 +28,7 @@ namespace BlogAppAPI.Controllers
                 UrlHandle = request.UrlHandle,
             };
 
-            await dbContext.Categories.AddAsync(category);
-            await dbContext.SaveChangesAsync();
+            await categoryRepository.CreateAsync(category);
 
             // Domain model to DTO
             var response = new CategoryDto
