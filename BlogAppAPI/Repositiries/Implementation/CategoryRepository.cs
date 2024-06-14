@@ -1,6 +1,7 @@
 ﻿using BlogAppAPI.Data;
 using BlogAppAPI.Models.Domain;
 using BlogAppAPI.Repositiries.Interface;
+using Microsoft.EntityFrameworkCore;
 
 namespace BlogAppAPI.Repositiries.Implementation
 {
@@ -20,6 +21,11 @@ namespace BlogAppAPI.Repositiries.Implementation
             await dbContext.SaveChangesAsync();
 
             return category;
+        }
+
+        public async Task<IEnumerable<Category>> GetAllAsync()
+        {
+            return await dbContext.Categories.ToListAsync();
         }
     }
 }
