@@ -10,5 +10,7 @@ namespace BlogAppAPI.Repositiries.Interface
 
         Task<Category?> GetById(Guid id);
 
+        Task<Category?> UpdateAsync(Category category);
+
     }
 }
