@@ -53,5 +53,34 @@ namespace BlogAppAPI.Controllers
             return Ok(response);
 
         }
+
+        [HttpGet]
+        public async Task<IActionResult> GetAllBlogPosts()
+        {
+           var blogPosts =  await blogPostRepository.GetAllAsync();
+
+            // Convert Domain model to DTO
+            var response = new List<BlogPostDto>();
+
+            foreach (var blogPost in blogPosts)
+            {
+                response.Add(new BlogPostDto
+                {
+                    Id = blogPost.Id,
+                    Title = blogPost.Title,
+                    Content = blogPost.Content,
+                    ShortDescription = blogPost.ShortDescription,
+                    FeaturedImageUrl = blogPost.FeaturedImageUrl,
+                    PublishedDate = blogPost.PublishedDate,
+                    Author = blogPost.Author,
+                    UrlHandle = blogPost.UrlHandle,
+                    IsVisible = blogPost.IsVisible
+                });
+            }
+
+            return Ok(response);
+        }
+    
     }
+
 }
